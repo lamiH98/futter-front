@@ -4,9 +4,14 @@ import 'package:flutter_front/screens/auth/register.dart';
 import 'package:flutter_front/screens/events.dart';
 import 'package:flutter_front/screens/home.dart';
 import 'package:flutter_front/screens/membershipTransactions.dart';
+import 'package:flutter_front/screens/notification_2.dart';
 import 'package:flutter_front/screens/notifications.dart';
 import 'package:flutter_front/screens/privacy_policy.dart';
+import 'package:flutter_front/screens/store.dart';
 import 'package:flutter_front/screens/terms_conditions.dart';
+import 'package:flutter_front/screens/transactions.dart';
+import 'package:flutter_front/screens/voucher.dart';
+import 'package:flutter_front/screens/voucher_details.dart';
 import 'package:flutter_front/screens/widgets/constants.dart';
 import 'package:flutter_front/screens/widgets/custom_text.dart';
 import 'package:flutter_front/screens/widgets/custom_text_form_field.dart';
@@ -27,11 +32,13 @@ class _LoginState extends State<Login> {
 
   bool _passwordVisible = false;
 
+  bool get isPopulated => _emailController.text.isEmpty && _passwordController.text.isEmpty;
+
   login() {
     var formData = _login.currentState;
     if(formData.validate()) {
       print('true');
-      Get.to(Notifications());
+      Get.to(Transactions());
       formData.save();
     }
   }
@@ -111,7 +118,7 @@ class _LoginState extends State<Login> {
                 },
                 child: CustomText(text: 'Forgot password', color: textColor),
               ),
-              Expanded(
+              isPopulated ? Expanded(
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
@@ -131,7 +138,7 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
-              ),
+              ) : CustomText(text: 'Shit'),
               TextButton(
                 onPressed: () {
                   Get.to(Register());
